@@ -28,7 +28,7 @@ public class Gun : MonoBehaviour {
     {
         muzzleFlash.Play();
 
-        GetComponent<Animator>().SetTrigger("Fire");
+        GetComponent<Animator>().Play("Recoil");
 
         RaycastHit hit;
         if (Physics.Raycast(muzzleFlash.transform.position, muzzleFlash.transform.forward, out hit, range))
