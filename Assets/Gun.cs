@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour {
     public float damage = 10f;
     public float range = 100f;
     public float impactForce = 30f;
+    public float fireRate = 10f;
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
@@ -26,6 +27,8 @@ public class Gun : MonoBehaviour {
     void Shoot()
     {
         muzzleFlash.Play();
+
+        GetComponent<Animator>().SetTrigger("Fire");
 
         RaycastHit hit;
         if (Physics.Raycast(muzzleFlash.transform.position, muzzleFlash.transform.forward, out hit, range))
@@ -49,5 +52,14 @@ public class Gun : MonoBehaviour {
     void Drop()
     {
         GameObject.Find("sniperCamo").transform.SetParent(null);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            GameObject.Find("sniperCamo").transform.SetParent(other.transform.GetChild(0));
+            GameObject.Find("sniperCamo").transform.localPosition = new Vector3(0.125f, -0.125f, 0.5f);
+            GameObject.Find("sniperCamo").transform.localEulerAngles = Vector3.zero;
+        }
     }
 }
