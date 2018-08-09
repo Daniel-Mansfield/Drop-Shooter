@@ -1,30 +1,16 @@
 ﻿using UnityEngine;
 
-public class Gun : MonoBehaviour {
-
+public class Gun : MonoBehaviour
+{
     public float damage = 10f;
     public float range = 100f;
     public float impactForce = 30f;
     public float fireRate = 10f;
 
-    public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
 
-	// Update is called once per frame
-	void Update () {
-	    // checks if player has fired
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Drop();
-        }
-	}
-
-    void Shoot()
+    public void Shoot()
     {
         muzzleFlash.Play();
 
@@ -49,17 +35,8 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    void Drop()
+    public void Drop()
     {
-        GameObject.Find("sniperCamo").transform.SetParent(null);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            GameObject.Find("sniperCamo").transform.SetParent(other.transform.GetChild(0));
-            GameObject.Find("sniperCamo").transform.localPosition = new Vector3(0.125f, -0.125f, 0.5f);
-            GameObject.Find("sniperCamo").transform.localEulerAngles = Vector3.zero;
-        }
+        transform.SetParent(null);
     }
 }
