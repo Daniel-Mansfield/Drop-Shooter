@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
 
     Animator anim;
 
-    float time;
     Vector3 targetPos;
 
 	void Start ()
@@ -20,7 +19,10 @@ public class Enemy : MonoBehaviour
 	void Update ()
     {
         if (Vector3.Distance(transform.position, targetPos) < 1)
+        {
+            GetComponentInChildren<Gun>().Shoot();
             targetPos = new Vector3(Random.Range(-20, 20), transform.position.y, Random.Range(-20, 20));
+        }
 
         Vector3 diff = (targetPos - transform.position).normalized * 4.5f;
         diff = transform.InverseTransformDirection(diff);
